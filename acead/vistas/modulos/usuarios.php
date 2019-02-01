@@ -41,9 +41,14 @@
          <tr>
 
            <th style="width:10px">#</th>
-           <th>Id</th>
+           <th style="width:10px">Id</th>
+           <th>Nombre</th>
+           <th>Apellido</th>
+           <th>Telefono</th>
            <th>Usuario</th>
-           <th>Perfil</th>
+           <th style="width:100px">Correo Electronico</th>
+           <th style="width:50px">Perfil</th>
+
            <th>Estado</th>
            <th>Último login</th>
            <th>Acciones</th>
@@ -66,7 +71,12 @@
           echo ' <tr>
                   <td>1</td>
                   <td>'.$value["Id_usuario"].'</td>
-                  <td>'.$value["Usuario"].'</td>';
+
+                  <td>'.$value["PrimerNombre"].'</td>
+                  <td>'.$value["PrimerApellido"].'</td>
+                  <td>'.$value["Telefono"].'</td>
+                  <td>'.$value["Usuario"].'</td>
+                  <td>'.$value["CorreoElectronico"].'</td>   ';
 
               /*
 <td>'.$value["nombre"].'</td>
@@ -80,7 +90,7 @@
 
                   }*/
 
-                  echo '<td>'.$value["Id_Rol"].'</td>';
+
                   switch ($value["Id_Rol"]) {
                     case '1':
                       echo '<td><idUsuario="'.$value["Id_usuario"].'" perfil="1">Administador</td>';
@@ -118,11 +128,16 @@
 
 
                   echo '<td>'.$value["FechaUltimaConex"].'</td>
+
                   <td>
 
                     <div class="btn-group">
 
                       <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value["Id_usuario"].'" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pencil"></i></button>
+
+
+                      <button class="btn btn-danger btnEliminarUsuario" idUsuario="'.$value["Id_usuario"].'" usuario="'.$value["Usuario"].'"><i class="fa fa-times"></i></button>
+
 
 
 
@@ -246,7 +261,9 @@ MODAL AGREGAR USUARIO
 
             </div>
 
-            <!-- ENTRADA PARA SUBIR FOTO -->
+
+            <!-- ENTRADA PARA SUBIR FOTO
+
 
              <div class="form-group">
 
@@ -258,7 +275,8 @@ MODAL AGREGAR USUARIO
 
               <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width="100px">
 
-            </div>
+            </div>   -->
+
 
           </div>
 
@@ -345,7 +363,9 @@ MODAL EDITAR USUARIO
 
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
-                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="" readonly>
+
+                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="">
+
 
               </div>
 
@@ -391,7 +411,8 @@ MODAL EDITAR USUARIO
 
             </div>
 
-            <!-- ENTRADA PARA SUBIR FOTO -->
+
+            <!-- ENTRADA PARA SUBIR FOTO
 
              <div class="form-group">
 
@@ -405,7 +426,9 @@ MODAL EDITAR USUARIO
 
               <input type="hidden" name="fotoActual" id="fotoActual">
 
-            </div>
+
+            </div> -->
+
 
           </div>
 

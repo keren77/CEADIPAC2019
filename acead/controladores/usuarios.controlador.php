@@ -8,12 +8,10 @@ class ControladorUsuarios{
 
 	static public function ctrIngresoUsuario(){
 
-		if(isset($_POST["ingUsuario"])){
 
-			if(preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingUsuario"]) &&
-			   preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])){
+	if(isset($_POST["ingUsuario"])){
 
-			   	$encriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+			if(preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingUsuario"])){
 
 				$tabla = "tbl_usuarios";
 
@@ -22,33 +20,40 @@ class ControladorUsuarios{
 
 				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
 
-				if($respuesta["Usuario"] == $_POST["ingUsuario"] && $respuesta["Contrasena"] == $encriptar){
+
+				if($respuesta["Usuario"] == $_POST["ingUsuario"] && password_verify($_POST["ingPassword"], $respuesta['Contrasena'])){
+
 
 					if($respuesta["Id_Estado"] == 3){
 
 						$_SESSION["iniciarSesion"] = "ok";
-						$_SESSION["id"] = $respuesta["id"];
-						$_SESSION["nombre"] = $respuesta["nombre"];
-						$_SESSION["usuario"] = $respuesta["usuario"];
-						$_SESSION["foto"] = $respuesta["foto"];
-						$_SESSION["perfil"] = $respuesta["perfil"];
+
+						$_SESSION["id"] = $respuesta["Id_usuario"];
+						$_SESSION["usuario"] = $respuesta["Id_usuario"];
+						$_SESSION["nombre"] = $respuesta["PrimerNombre"];
+						$_SESSION["perfil"] = $respuesta["Id_Rol"];
+
 
 						/*=============================================
 						REGISTRAR FECHA PARA SABER EL ÚLTIMO LOGIN
 						=============================================*/
 
-						date_default_timezone_set('America/Bogota');
+
+						date_default_timezone_set('America/Tegucigalpa');
+
 
 						$fecha = date('Y-m-d');
 						$hora = date('H:i:s');
 
 						$fechaActual = $fecha.' '.$hora;
 
-						$item1 = "ultimo_login";
+
+						$item1 = "FechaUltimaConex";
 						$valor1 = $fechaActual;
 
-						$item2 = "id";
-						$valor2 = $respuesta["id"];
+						$item2 = "Id_usuario";
+						$valor2 = $respuesta["Id_usuario"];
+
 
 						$ultimoLogin = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
 
@@ -65,13 +70,16 @@ class ControladorUsuarios{
 					}else{
 
 						echo '<br>
-							<div class="alert alert-danger">El usuario aún no está activado</div>';
+
+							<div class="alert alert-danger">El usuario aún no está activo</div>';
+
 
 					}
 
 				}else{
 
-					echo '<br><div class="alert alert-danger">Error al ingresar, vuelve a intentarlo</div>';
+					echo '<br><div class="alert alert-danger">Error al ingresar, Usuario y/o Contraseña Invalidos</div>';
+
 
 				}
 
@@ -261,26 +269,33 @@ class ControladorUsuarios{
 				VALIDAR IMAGEN
 				=============================================*/
 
-				$ruta = $_POST["fotoActual"];
+
+	/*			$ruta = $_POST["fotoActual"];
+
 
 				if(isset($_FILES["editarFoto"]["tmp_name"]) && !empty($_FILES["editarFoto"]["tmp_name"])){
 
 					list($ancho, $alto) = getimagesize($_FILES["editarFoto"]["tmp_name"]);
 
 					$nuevoAncho = 500;
-					$nuevoAlto = 500;
+
+					$nuevoAlto = 500;     */
+
 
 					/*=============================================
 					CREAMOS EL DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL USUARIO
 					=============================================*/
 
-					$directorio = "vistas/img/usuarios/".$_POST["editarUsuario"];
+			/*		$directorio = "vistas/img/usuarios/".$_POST["editarUsuario"];   */
+
 
 					/*=============================================
 					PRIMERO PREGUNTAMOS SI EXISTE OTRA IMAGEN EN LA BD
 					=============================================*/
 
-					if(!empty($_POST["fotoActual"])){
+
+			/*		if(!empty($_POST["fotoActual"])){
+
 
 						unlink($_POST["fotoActual"]);
 
@@ -290,17 +305,23 @@ class ControladorUsuarios{
 
 					}
 
+*/
+
 					/*=============================================
 					DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
 					=============================================*/
 
-					if($_FILES["editarFoto"]["type"] == "image/jpeg"){
+
+/*					if($_FILES["editarFoto"]["type"] == "image/jpeg"){    */
+
 
 						/*=============================================
 						GUARDAMOS LA IMAGEN EN EL DIRECTORIO
 						=============================================*/
 
-						$aleatorio = mt_rand(100,999);
+
+	/*					$aleatorio = mt_rand(100,999);
+
 
 						$ruta = "vistas/img/usuarios/".$_POST["editarUsuario"]."/".$aleatorio.".jpg";
 
@@ -314,13 +335,16 @@ class ControladorUsuarios{
 
 					}
 
-					if($_FILES["editarFoto"]["type"] == "image/png"){
+					if($_FILES["editarFoto"]["type"] == "image/png"){    */
+
 
 						/*=============================================
 						GUARDAMOS LA IMAGEN EN EL DIRECTORIO
 						=============================================*/
 
-						$aleatorio = mt_rand(100,999);
+
+/*						$aleatorio = mt_rand(100,999);
+
 
 						$ruta = "vistas/img/usuarios/".$_POST["editarUsuario"]."/".$aleatorio.".png";
 
@@ -336,13 +360,14 @@ class ControladorUsuarios{
 
 				}
 
+*/
+
 				$tabla = "tbl_usuarios";
 
 				if($_POST["editarPassword"] != ""){
 
-					if(preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarPassword"])){
 
-						$encriptar = crypt($_POST["editarPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+					$encriptar = password_hash($_POST["editarPassword"], PASSWORD_DEFAULT);
 
 					}else{
 
@@ -350,7 +375,9 @@ class ControladorUsuarios{
 
 								swal({
 									  type: "error",
-									  title: "¡La contraseña no puede ir vacía o llevar caracteres especiales!",
+
+									  title: "¡La contraseña no puede ir vacía",
+
 									  showConfirmButton: true,
 									  confirmButtonText: "Cerrar",
 									  closeOnConfirm: false
@@ -364,19 +391,17 @@ class ControladorUsuarios{
 
 						  	</script>';
 
-					}
 
-				}else{
+										}
 
-					$encriptar = $passwordActual;
+				$datos = array(//"Usuario" => $_POST["editarNombre"],
+							   "Usuario" => $_POST["editarUsuario"],
+							   "Contrasena" => $encriptar,
+							  // "Id_Rol" => $_POST["editarPerfil"]
+							);
+							   //"foto" => $ruta)
 
-				}
 
-				$datos = array("nombre" => $_POST["editarNombre"],
-							   "usuario" => $_POST["editarUsuario"],
-							   "password" => $encriptar,
-							   "perfil" => $_POST["editarPerfil"],
-							   "foto" => $ruta);
 
 				$respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $datos);
 
@@ -437,15 +462,11 @@ class ControladorUsuarios{
 
 		if(isset($_GET["idUsuario"])){
 
-			$tabla ="usuarios";
+
+			$tabla ="tbl_usuarios";
 			$datos = $_GET["idUsuario"];
 
-			if($_GET["fotoUsuario"] != ""){
 
-				unlink($_GET["fotoUsuario"]);
-				rmdir('vistas/img/usuarios/'.$_GET["usuario"]);
-
-			}
 
 			$respuesta = ModeloUsuarios::mdlBorrarUsuario($tabla, $datos);
 
