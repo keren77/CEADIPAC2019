@@ -5,7 +5,7 @@ SUBIENDO LA FOTO DEL USUARIO
 $(".nuevaFoto").change(function(){
 
 	var imagen = this.files[0];
-	
+
 	/*=============================================
   	VALIDAMOS EL FORMATO DE LA IMAGEN SEA JPG O PNG
   	=============================================*/
@@ -55,7 +55,7 @@ EDITAR USUARIO
 $(".btnEditarUsuario").click(function(){
 
 	var idUsuario = $(this).attr("idUsuario");
-	
+
 	var datos = new FormData();
 	datos.append("idUsuario", idUsuario);
 
@@ -69,7 +69,7 @@ $(".btnEditarUsuario").click(function(){
 		processData: false,
 		dataType: "json",
 		success: function(respuesta){
-			
+
 			$("#editarNombre").val(respuesta["nombre"]);
 			$("#editarUsuario").val(respuesta["usuario"]);
 			$("#editarPerfil").html(respuesta["perfil"]);
@@ -156,7 +156,7 @@ $("#nuevoUsuario").change(function(){
 	    processData: false,
 	    dataType: "json",
 	    success:function(respuesta){
-	    	
+
 	    	if(respuesta){
 
 	    		$("#nuevoUsuario").parent().after('<div class="alert alert-warning">Este usuario ya existe en la base de datos</div>');
@@ -176,7 +176,7 @@ ELIMINAR USUARIO
 $(".btnEliminarUsuario").click(function(){
 
   var idUsuario = $(this).attr("idUsuario");
-  var fotoUsuario = $(this).attr("fotoUsuario");
+  //var fotoUsuario = $(this).attr("fotoUsuario");
   var usuario = $(this).attr("usuario");
 
   swal({
@@ -192,14 +192,10 @@ $(".btnEliminarUsuario").click(function(){
 
     if(result.value){
 
-      window.location = "index.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario+"&fotoUsuario="+fotoUsuario;
+      window.location = "index.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario;
 
     }
 
   })
 
 })
-
-
-
-
