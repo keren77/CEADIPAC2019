@@ -176,7 +176,9 @@ ELIMINAR USUARIO
 $(".btnEliminarUsuario").click(function(){
 
   var idUsuario = $(this).attr("idUsuario");
+
   //var fotoUsuario = $(this).attr("fotoUsuario");
+
   var usuario = $(this).attr("usuario");
 
   swal({
@@ -192,10 +194,13 @@ $(".btnEliminarUsuario").click(function(){
 
     if(result.value){
 
+
       window.location = "index.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario;
+
 
     }
 
   })
 
 })
+
