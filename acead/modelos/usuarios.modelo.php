@@ -44,14 +44,18 @@ class ModeloUsuarios{
 	static public function mdlIngresarUsuario($tabla, $datos){
 
 
-		$stmt = ConexionBD::Abrir_Conexion()->prepare("INSERT INTO $tabla(nombre, usuario, password, perfil) VALUES (:nombre, :usuario, :password, :perfil)");
+		$stmt = ConexionBD::Abrir_Conexion()->prepare("INSERT INTO $tabla(PrimerNombre, PrimerApellido, CorreoElectronico, Telefono, Cedula, Usuario, Contrasena)
+																									VALUES (:nombre1, :apellido1, :email, :telefono, :cedula, :usuario, :password)");
 
 
-		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
-		$stmt->bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
-		$stmt->bindParam(":password", $datos["password"], PDO::PARAM_STR);
-		$stmt->bindParam(":perfil", $datos["perfil"], PDO::PARAM_STR);
-
+		$stmt->bindParam(":nombre1", $datos["PrimerNombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":apellido1", $datos["PrimerApellido"], PDO::PARAM_STR);
+		$stmt->bindParam(":email", $datos["CorreoElectronico"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono", $datos["Telefono"], PDO::PARAM_STR);
+		$stmt->bindParam(":cedula", $datos["Cedula"], PDO::PARAM_STR);
+		$stmt->bindParam(":usuario", $datos["Usuario"], PDO::PARAM_STR);
+		$stmt->bindParam(":password", $datos["Contrasena"], PDO::PARAM_STR);
+		//$stmt->bindParam(":perfil", $datos["perfil"], PDO::PARAM_STR);
 		//$stmt->bindParam(":foto", $datos["foto"], PDO::PARAM_STR);
 
 

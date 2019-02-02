@@ -48,7 +48,6 @@
            <th>Usuario</th>
            <th style="width:100px">Correo Electronico</th>
            <th style="width:50px">Perfil</th>
-
            <th>Estado</th>
            <th>Último login</th>
            <th>Acciones</th>
@@ -71,7 +70,6 @@
           echo ' <tr>
                   <td>1</td>
                   <td>'.$value["Id_usuario"].'</td>
-
                   <td>'.$value["PrimerNombre"].'</td>
                   <td>'.$value["PrimerApellido"].'</td>
                   <td>'.$value["Telefono"].'</td>
@@ -195,7 +193,7 @@ MODAL AGREGAR USUARIO
 
           <div class="box-body">
 
-            <!-- ENTRADA PARA EL NOMBRE -->
+            <!-- ENTRADA PARA EL PRIMER NOMBRE -->
 
             <div class="form-group">
 
@@ -203,7 +201,94 @@ MODAL AGREGAR USUARIO
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
-                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingresar nombre" required>
+                <input type="text" class="form-control input-lg" name="nuevoNombre1" placeholder="Primer Nombre" required>
+
+              </div>
+
+            </div>
+
+
+          <!-- ENTRADA PARA EL SEGUNDO NOMBRE -->
+
+          <div class="form-group">
+
+            <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                <input type="text" class="form-control input-lg" name="nuevoNombre2" placeholder="Segundo Nombre">
+
+              </div>
+
+          </div>
+
+
+
+            <!-- ENTRADA PARA EL PRIMER APELLIDO -->
+
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                <input type="text" class="form-control input-lg" name="nuevoApellido1" placeholder="Primer Apellido" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL PRIMER APELLIDO -->
+
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                <input type="text" class="form-control input-lg" name="nuevoApellido2" placeholder="Segundo Apellido">
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL TELEFONO -->
+
+            <div class="form-group">
+
+                  <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+
+                    <input type="text" class="form-control input-lg" name="nuevoTelefono" placeholder="Telefono" pattern="[0-9]{8}">
+
+                  </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL NUMERO DE IDENTIDAD -->
+
+            <div class="form-group">
+
+                  <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
+
+                    <input type="text" class="form-control input-lg" name="nuevoCedula" placeholder="Numero de Identidad" pattern="[0-9]{13}">
+
+                  </div>
+
+            </div>
+
+        <!-- ENTRADA PARA EL CORREO ELECTRONICO -->
+
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-at"></i></span>
+
+                <input type="email" class="form-control input-lg" name="nuevoEmail" placeholder="Correo Electronico" required>
 
               </div>
 
@@ -215,7 +300,7 @@ MODAL AGREGAR USUARIO
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <span class="input-group-addon"><i class="fa fa-id-badge"></i></span>
 
                 <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingresar usuario" id="nuevoUsuario" required>
 
@@ -231,7 +316,7 @@ MODAL AGREGAR USUARIO
 
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
 
-                <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar contraseña" required>
+                <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar contraseña" maxlength="30" minlength="5" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,8}$" required>
 
               </div>
 
